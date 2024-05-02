@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar dados da API</title>
+</head>
+<body>
+    <button onclick={localData()}>Recuperar dados</button>
+</body>
+<script>
+    const localData = () => {
+        const xhr = new XMLHttpRequest()
+
+        xhr.open("GET", "https://api.github.com/users/LaecioFillho")
+        xhr.send(null)
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState === 4){
+                const res = JSON.parse(xhr.responseText)
+                console.log(res)
+                
+                const name = res.name
+                const image = res.avatar_url
+                const followers = res.followers
+                const blogUrl = res.blog
+
+                const avatar = document.createElement('img')
+                avatar.setAttribute("src", image)
+                avatar.style = "width: 128px"
+                console.log(avatar)
+
+                const nomeHtml = document.createElement('h1')
+                nomeHtml.innerText = name
+
+                document.body.appendChild(avatar)
+                document.body.appendChild(nomeHtml)
+            }
+        }
+    }
+</script>
+</html>
